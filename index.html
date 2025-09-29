@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreeder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="parent-container">
+        <h1>Welcome to Spreeder</h1>
+        <div id="radio-buttons" class="radio-buttons">
+            <div>
+                <input type="radio" name="content" id="text-radio" value="text" class="text-radio" checked>
+                <label for="text-radio-label">Text</label>
+            </div>
+            <div>
+                <input type="radio" name="content" id="file-radio" value="file" class="text-radio">
+                <label for="file-radio-label">File</label>
+            </div>
+        </div>
+        <div id="text-input-section" class="text-input-section">
+            <p>Paste the text you'd like to speed read here:</p>
+            <textarea rows="10" cols="50" placeholder="Enter text here..." id="text-input"
+                class="input-textarea"></textarea><br>
+            <button onclick="handleInput()" id="submit-input" class="submit-input">Submit</button> <br>
+        </div>
+        <div id="file-input-section" class="file-input-section">
+            <input type="file" id="file-input" class="file-input" accept=".pdf"><br>
+        </div>
+        <div id="display-result-section" class="display-result-section">
+            <p>Displaying the text:</p>
+            <textarea rows="10" cols="50" placeholder="Your text will display here..." id="text-display"
+                class="display-textarea"></textarea><br>
+            <button onclick="handleDisplay()" id="submit-display" class="submit-display">Set New</button>
+            <!-- <button onclick="startReading()" id="start-reading" class="start-reading">Start Reading</button>
+            <button onclick="pauseReading()" id="pause-reading" class="pause-reading">Pause Reading</button>
+            <button onclick="resetReading()" id="reset-reading" class="reset-reading">Reset</button>  -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        // Tell pdf.js where the worker file is
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>

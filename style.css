@@ -1,0 +1,89 @@
+.parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.input-textarea {
+    width: 80%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+.display-textarea {
+    width: 80%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #e8e8e8;
+    font-size: 16px;
+    resize: none;
+}
+
+.submit-input {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.submit-display {
+    background-color: #8468f5;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.radio-buttons {
+    margin: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.text-input-section {
+    display: inline;
+}
+
+.display-result-section {
+    display: none;
+}
+
+.file-input {
+    margin: 20px;
+    font-size: 18px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 30px;
+    width: 250px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    color: #666;
+    padding: 10px;
+}
