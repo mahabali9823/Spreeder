@@ -1,6 +1,7 @@
 const textRadio = document.getElementById('text-radio');
 const fileRadio = document.getElementById('file-radio');
 const file = document.getElementById('file-input');
+const wpmElement = document.getElementById('wpm');
 console.log({ textRadio, fileRadio });
 
 
@@ -11,6 +12,7 @@ function renderContent() {
     } else {
         document.getElementById('text-input-section').style.display = "none";
         document.getElementById('file-input-section').style.display = "inline";
+        document.getElementById('submit-display').style.display = "none";
         const displayResultSection = document.getElementById('display-result-section');
         if (file.files.length === 0) {
             displayResultSection.style.display = "none";
@@ -29,6 +31,8 @@ renderContent();
 function fileDataHandler(event) {
     renderContent();
     const displayBox = document.getElementById('text-display');
+    const wpmValue = wpmElement.value;
+    const delay = wpmValue ? (60000 / parseInt(wpmValue)) : 500;
 
     const file = event.target.files[0];
     if (!file) return; // exit if no file selected
@@ -52,11 +56,11 @@ function fileDataHandler(event) {
             }
 
             const text = fullText.split(' ').filter(word => word.trim() !== '');
-            console.log(text);
+            console.log('pdf',{ wpmValue, delay });
             for (let i = 0; i < text.length; i++) {
                 setTimeout(() => {
                     displayBox.innerText = text[i];
-                }, i * 500);
+                }, i * delay);
             }
 
         } catch (err) {
@@ -71,18 +75,19 @@ function handleInput() {
     const displayBox = document.getElementById('text-display');
     const textInputSection = document.getElementById('text-input-section');
     const displayResultSection = document.getElementById('display-result-section');
+    const wpmValue = wpmElement.value;
+    const delay = wpmValue ? (60000 / parseInt(wpmValue)) : 500;
 
-    console.log(inputBox);
+    console.log('text',{ wpmValue, delay });
 
     textInputSection.style.display = "none";
     displayResultSection.style.display = "inline";
 
     const text = inputBox.value.split(' ');
-    console.log(text);
     for (let i = 0; i < text.length; i++) {
         setTimeout(() => {
             displayBox.innerText = text[i];
-        }, i * 500);
+        }, i * delay);
     }
 };
 
