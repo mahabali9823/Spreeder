@@ -1,39 +1,43 @@
+const displayBox = document.getElementById('text-display');
 const textRadio = document.getElementById('text-radio');
 const fileRadio = document.getElementById('file-radio');
 const file = document.getElementById('file-input');
+const backward = document.getElementById('backward');
+const play = document.getElementById('play');
+const stops = document.getElementById('stop');
+stops.style.display = "none";
 const wpmElement = document.getElementById('wpm');
-console.log({ textRadio, fileRadio });
 
+let currentIndex = 0;
+let textContent = [];
+let timeoutId = null;
+let isPlaying = false;
 
 function renderContent() {
     if (textRadio.checked) {
-        document.getElementById('text-input-section').style.display = "inline";
         document.getElementById('file-input-section').style.display = "none";
+        document.getElementById('display-result-section').style.display = "none";
+        document.getElementById('text-input-section').style.display = "inline";
+        file.value = null;
     } else {
         document.getElementById('text-input-section').style.display = "none";
+        document.getElementById('display-result-section').style.display = "none";
         document.getElementById('file-input-section').style.display = "inline";
         document.getElementById('submit-display').style.display = "none";
-        const displayResultSection = document.getElementById('display-result-section');
-        if (file.files.length === 0) {
-            displayResultSection.style.display = "none";
-        } else {
-            displayResultSection.style.display = "inline";
-        }
+        document.getElementById('text-input').value = "";
     }
 }
 
 textRadio.addEventListener('change', renderContent);
 fileRadio.addEventListener('change', renderContent);
 file.addEventListener('change', fileDataHandler);
+backward.addEventListener('click', handleBackward);
+play.addEventListener('click', handlePlay);
+stops.addEventListener('click', handleStops);
 
 renderContent();
 
 function fileDataHandler(event) {
-    renderContent();
-    const displayBox = document.getElementById('text-display');
-    const wpmValue = wpmElement.value;
-    const delay = wpmValue ? (60000 / parseInt(wpmValue)) : 500;
-
     const file = event.target.files[0];
     if (!file) return; // exit if no file selected
 
@@ -56,13 +60,15 @@ function fileDataHandler(event) {
             }
 
             const text = fullText.split(' ').filter(word => word.trim() !== '');
-            console.log('pdf',{ wpmValue, delay });
-            for (let i = 0; i < text.length; i++) {
-                setTimeout(() => {
-                    displayBox.innerText = text[i];
-                }, i * delay);
-            }
 
+            const displayResultSection = document.getElementById('display-result-section');
+            if (text.length === 0) {
+                displayResultSection.style.display = "none";
+            } else {
+                displayResultSection.style.display = "inline";
+            }
+            textContent = text;
+            currentIndex = 0;
         } catch (err) {
             console.log(err)
         }
@@ -71,24 +77,17 @@ function fileDataHandler(event) {
 }
 
 function handleInput() {
+    document.getElementById('submit-display').style.display = "inline";
     const inputBox = document.getElementById('text-input');
-    const displayBox = document.getElementById('text-display');
     const textInputSection = document.getElementById('text-input-section');
     const displayResultSection = document.getElementById('display-result-section');
-    const wpmValue = wpmElement.value;
-    const delay = wpmValue ? (60000 / parseInt(wpmValue)) : 500;
-
-    console.log('text',{ wpmValue, delay });
 
     textInputSection.style.display = "none";
     displayResultSection.style.display = "inline";
 
     const text = inputBox.value.split(' ');
-    for (let i = 0; i < text.length; i++) {
-        setTimeout(() => {
-            displayBox.innerText = text[i];
-        }, i * delay);
-    }
+    textContent = text;
+    currentIndex = 0;
 };
 
 function handleDisplay() {
@@ -102,38 +101,38 @@ function handleDisplay() {
     inputBox.innerText = " ";
 }
 
+function handleBackward() {
+    isPlaying = false;
+    currentIndex = 0;
+    clearTimeout(timeoutId);
+    timeoutId = null;
+    displayBox.innerText = "";
+    play.style.display = "inline";
+    stops.style.display = "none";
+}
 
-// function handleInput() {
-//     const inputBox = document.getElementById('text-input');
-//     const displayBox = document.getElementById('text-display');
-//     const submitInput = document.getElementById('submit-input');
-//     const submitDisplay = document.getElementById('submit-display');
+function handlePlay() {
+    play.style.display = "none";
+    stops.style.display = "inline";
 
-//     console.log(inputBox);
+    isPlaying = true;
+    const wpmValue = wpmElement.value;
+    const delay = wpmValue ? (60000 / parseInt(wpmValue)) : 500;    
 
-//     inputBox.style.display = "none";
-//     submitInput.style.display = "none";
-//     displayBox.style.display = "inline";
-//     submitDisplay.style.display = "inline";
+    function displayNextWord() {
+        if (!isPlaying || currentIndex >= textContent.length) return;
+        displayBox.innerText = textContent[currentIndex];
+        currentIndex++;
+        timeoutId = setTimeout(displayNextWord, delay);
+    }
+    displayNextWord();
+}
 
-//     const text = inputBox.value.split(' ');
-//     console.log(text);
-//     for(let i = 0; i < text.length; i++) {
-//         setTimeout(() => {
-//             displayBox.innerText = text[i];
-//         },  i * 500);
-//     }
-// };
+function handleStops() {
+    stops.style.display = "none";
+    play.style.display = "inline";
 
-// function handleDisplay() {
-//     const inputBox = document.getElementById('text-input');
-//     const displayBox = document.getElementById('text-display');
-//     const submitInput = document.getElementById('submit-input');
-//     const submitDisplay = document.getElementById('submit-display');
-
-//     inputBox.style.display = "inline";
-//     submitInput.style.display = "inline";
-//     displayBox.style.display = "none";
-//     submitDisplay.style.display = "none";
-//     inputBox.innerText = " ";
-// }
+    isPlaying = false;
+    clearTimeout(timeoutId);
+    timeoutId = null;
+}

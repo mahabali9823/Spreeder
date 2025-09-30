@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spreeder</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -38,10 +39,12 @@
             <p>Displaying the text:</p>
             <textarea rows="10" cols="50" placeholder="Your text will display here..." id="text-display"
                 class="display-textarea"></textarea><br>
+             <div class="control-icons" id="control-icons">
+                <i id="backward" class="fa fa-step-backward" style="font-size:22px; margin-right: 10px;"></i>
+                <i id="play" class="fa fa-play-circle-o" style="font-size:24px"></i>
+                <i id="stop" class="fa fa-stop-circle-o" style="font-size:24px"></i>
+            </div>
             <button onclick="handleDisplay()" id="submit-display" class="submit-display">Set New</button>
-            <!-- <button onclick="startReading()" id="start-reading" class="start-reading">Start Reading</button>
-            <button onclick="pauseReading()" id="pause-reading" class="pause-reading">Pause Reading</button>
-            <button onclick="resetReading()" id="reset-reading" class="reset-reading">Reset</button>  -->
         </div>
     </div>
 
