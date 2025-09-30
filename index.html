@@ -37,10 +37,13 @@
         <div id="display-result-section" class="display-result-section">
             <textarea rows="10" cols="50" placeholder="Your text will display here..." id="text-display"
                 class="display-textarea"></textarea><br>
-             <div class="control-icons" id="control-icons">
-                <i id="backward" class="fa fa-step-backward" style="font-size:22px; margin-right: 10px;"></i>
-                <i id="play" class="fa fa-play-circle-o" style="font-size:24px"></i>
-                <i id="stop" class="fa fa-stop-circle-o" style="font-size:24px"></i>
+            <div class="control-icons" id="control-icons">
+                <div>
+                    <i id="backward" class="fa fa-step-backward" style="font-size:18px; margin-right: 10px;"></i>
+                    <i id="play" class="fa fa-play-circle-o" style="font-size:20px"></i>
+                    <i id="stop" class="fa fa-stop-circle-o" style="font-size:20px"></i>
+                </div>
+                <progress id="progress-bar" value="0" max="100"></progress>
             </div>
             <button onclick="handleDisplay()" id="submit-display" class="submit-display">Set New</button>
         </div>

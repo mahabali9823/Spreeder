@@ -7,6 +7,7 @@ const play = document.getElementById('play');
 const stops = document.getElementById('stop');
 stops.style.display = "none";
 const wpmElement = document.getElementById('wpm');
+const progressBar = document.getElementById('progress-bar');
 
 let currentIndex = 0;
 let textContent = [];
@@ -34,6 +35,7 @@ file.addEventListener('change', fileDataHandler);
 backward.addEventListener('click', handleBackward);
 play.addEventListener('click', handlePlay);
 stops.addEventListener('click', handleStops);
+progressBar.addEventListener('click', handleProgressBar);
 
 renderContent();
 
@@ -135,4 +137,13 @@ function handleStops() {
     isPlaying = false;
     clearTimeout(timeoutId);
     timeoutId = null;
+}
+
+function handleProgressBar(event) {
+    console.log('Progress bar clicked');
+    const totalLength = textContent.length;
+    const currentValue = event;
+    console.log('Current Value:', currentValue);
+    progressBar.setAttribute('max', totalLength.toString());
+    // progressBar.setAttribute('value', currentIndex.toString());
 }

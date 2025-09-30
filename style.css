@@ -87,3 +87,16 @@
     color: #666;
     padding: 10px;
 }
+
+.control-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 10px auto;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    width: 350px;
+    box-sizing: border-box;
+    padding: 2px;
+}
