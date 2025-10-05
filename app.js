@@ -147,7 +147,6 @@ function handleStops() {
 }
 
 function handleProgressBar(event) {
-    console.log("Progress Bar Clicked", event);
     const totalLength = textContent.length;
     percentage = (currentIndex / totalLength)*100;
     progressBar.setAttribute('value', percentage.toString());

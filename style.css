@@ -99,4 +99,14 @@
     width: 350px;
     box-sizing: border-box;
     padding: 2px;
+    width: 65%;
+    max-width: 400px;   /* limit for desktop */
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .control-icons {
+    width: 70%;      
+    max-width: none;  /* allow full scaling */
+  }
 }
