@@ -13,6 +13,8 @@ let currentIndex = 0;
 let textContent = [];
 let timeoutId = null;
 let isPlaying = false;
+let progressBartimeoutId = null;
+let percentage = 0;
 
 function renderContent() {
     if (textRadio.checked) {
@@ -108,6 +110,9 @@ function handleBackward() {
     currentIndex = 0;
     clearTimeout(timeoutId);
     timeoutId = null;
+    clearTimeout(progressBartimeoutId);
+    progressBartimeoutId = null;
+    progressBar.setAttribute('value',"0");
     displayBox.innerText = "";
     play.style.display = "inline";
     stops.style.display = "none";
@@ -126,6 +131,7 @@ function handlePlay() {
         displayBox.innerText = textContent[currentIndex];
         currentIndex++;
         timeoutId = setTimeout(displayNextWord, delay);
+        progressBartimeoutId = setTimeout(handleProgressBar, delay);
     }
     displayNextWord();
 }
@@ -136,14 +142,13 @@ function handleStops() {
 
     isPlaying = false;
     clearTimeout(timeoutId);
+    clearTimeout(progressBartimeoutId);
     timeoutId = null;
 }
 
 function handleProgressBar(event) {
-    console.log('Progress bar clicked');
+    console.log("Progress Bar Clicked", event);
     const totalLength = textContent.length;
-    const currentValue = event;
-    console.log('Current Value:', currentValue);
-    progressBar.setAttribute('max', totalLength.toString());
-    // progressBar.setAttribute('value', currentIndex.toString());
+    percentage = (currentIndex / totalLength)*100;
+    progressBar.setAttribute('value', percentage.toString());
 }
